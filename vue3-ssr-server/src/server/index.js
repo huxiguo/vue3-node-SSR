@@ -5,6 +5,9 @@ let server = express()
 import createApp from '../app'
 import { renderToString } from '@vue/server-renderer'
 
+// 部署静态资源
+server.use(express.static('build'))
+
 server.get('/', async (req, res) => {
   let app = createApp()
   let htmlStr = await renderToString(app)
@@ -23,6 +26,7 @@ server.get('/', async (req, res) => {
     <div id="app">
       ${htmlStr}
     </div>
+    <script src="/client/client_bundle.js"></script>
   </body>
   </html>
   `
